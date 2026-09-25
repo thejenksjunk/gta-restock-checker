@@ -56,6 +56,13 @@ def main() -> None:
         )
     else:
         print("Still sold out.")
+        req = urllib.request.Request(
+            f"https://ntfy.sh/{NTFY_TOPIC}",
+            data="Checked just now: still sold out.".encode("utf-8"),
+            headers={"Title": "Still sold out", "Priority": "min", "Tags": "hourglass"},
+            method="POST",
+        )
+        urllib.request.urlopen(req, timeout=20)
 
 
 if __name__ == "__main__":
